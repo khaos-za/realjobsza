@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My Real Jobs SA – South Africa's only job board where every company must provide verified CIPC registration details. No scams. Real jobs for real South Africans.">
+    <title>My Real Jobs SA – Verified Jobs for South Africa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #00c853;
+        }
+        
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #00c853 0%, #00b140 100%);
+        }
+        
+        .job-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .job-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        .za-flag {
+            animation: flag-wave 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans">
+    <!-- NAVBAR -->
+    <nav class="bg-zinc-900 border-b border-zinc-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="w-9 h-9 bg-emerald-500 rounded-2xl flex items-center justify-center text-white font-bold text-2xl">🇿🇦</div>
+                    <h1 class="text-2xl font-semibold tracking-tighter" style="font-family: 'Space Grotesk', sans-serif;">RealJobsZA</h1>
+                </div>
+
+                <!-- Menu -->
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#jobs" onclick="navigateToSection('jobs-section')" class="hover:text-emerald-400">Browse Jobs</a>
+                    <a href="#post" onclick="navigateToSection('post-section')" class="hover:text-emerald-400">Post a Job</a>
+                    <a href="#companies" onclick="navigateToSection('companies-section')" class="hover:text-emerald-400">For Companies</a>
+                    <a href="#how" onclick="navigateToSection('how-section')" class="hover:text-emerald-400">How It Works</a>
+                </div>
+
+                <div class="flex items-center gap-x-4">
+                    <button onclick="toggleLoginModal()" 
+                            class="px-5 py-2 text-sm font-medium border border-zinc-700 hover:border-zinc-400 rounded-3xl flex items-center gap-x-2">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Sign in</span>
+                    </button>
+                    <button onclick="showPostJobModal()" 
+                            class="bg-emerald-500 hover:bg-emerald-600 text-black px-6 py-2 rounded-3xl font-semibold flex items-center gap-x-2">
+                        <i class="fa-solid fa-plus"></i>
+                        POST A JOB
+                    </button>
+                    
+                    <!-- Mobile menu -->
+                    <button onclick="toggleMobileMenu()" class="md:hidden text-2xl">
+                        <i class="fa-solid fa-bars" id="mobile-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-zinc-900 border-t border-zinc-800 px-6 py-4">
+            <a href="#jobs" onclick="navigateToSection('jobs-section');toggleMobileMenu()" class="block py-3 text-lg">Browse Jobs</a>
+            <a href="#post" onclick="navigateToSection('post-section');toggleMobileMenu()" class="block py-3 text-lg">Post a Job</a>
+            <a href="#companies" onclick="navigateToSection('companies-section');toggleMobileMenu()" class="block py-3 text-lg">For Companies</a>
+            <a href="#how" onclick="navigateToSection('how-section');toggleMobileMenu()" class="block py-3 text-lg">How It Works</a>
+            <div class="pt-4 border-t border-zinc-800">
+                <button onclick="toggleLoginModal();toggleMobileMenu()" class="w-full py-4 bg-zinc-800 rounded-3xl">Sign in / Register</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero-bg text-white">
+        <div class="max-w-7xl mx-auto px-6 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="inline-flex items-center gap-x-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-3xl text-sm mb-6">
+                    <div class="w-2 h-2 bg-emerald-300 rounded-full animate-pulse"></div>
+                    100% VERIFIED COMPANIES • SOUTH AFRICA ONLY
+                </div>
+                
+                <h1 class="text-6xl md:text-7xl font-semibold leading-none tracking-tighter mb-6" style="font-family: 'Space Grotesk', sans-serif;">
+                    Real jobs.<br>
+                    Real companies.<br>
+                    <span class="text-emerald-200">No scams.</span>
+                </h1>
+                
+                <p class="text-xl text-emerald-100 max-w-md mb-10">
+                    Every company must provide CIPC registration number, physical address &amp; contact details. 
+                    Job seekers finally win.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="navigateToSection('jobs-section')" 
+                            class="bg-white text-black hover:bg-emerald-100 px-8 py-4 rounded-3xl text-lg font-semibold flex items-center gap-x-3">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        BROWSE 1,284 JOBS
+                    </button>
+                    <button onclick="showPostJobModal()" 
+                            class="border-2 border-white hover:bg-white hover:text-black px-8 py-4 rounded-3xl text-lg font-semibold flex items-center gap-x-3">
+                        <i class="fa-solid fa-building"></i>
+                        POST YOUR JOB (FREE)
+                    </button>
+                </div>
+                
+                <div class="mt-12 flex items-center gap-x-8 text-sm">
+                    <div class="flex -space-x-4">
+                        <div class="w-8 h-8 bg-white/30 backdrop-blur rounded-2xl flex items-center justify-center text-xs">🇿🇦</div>
+                        <div class="w-8 h-8 bg-white/30 backdrop-blur rounded-2xl flex items-center justify-center text-xs">🏦</div>
+                        <div class="w-8 h-8 bg-white/30 backdrop-blur rounded-2xl flex items-center justify-center text-xs">🏥</div>
+                    </div>
+                    <div>
+                        <p class="font-medium">Trusted by companies in</p>
+                        <p class="text-emerald-100">Johannesburg • Cape Town • Durban • Pretoria • Bloemfontein</p>
+                    </div>
+                    <div class="text-4xl font-bold text-emerald-200">🇿🇦</div>
+                </div>
+            </div>
+            
+            <!-- Hero visual -->
+            <div class="hidden md:flex justify-end">
+                <div class="bg-white/10 backdrop-blur-3xl border border-white/20 rounded-3xl p-8 max-w-sm">
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex items-center gap-x-3">
+                            <div class="za-flag text-3xl">🇿🇦</div>
+                            <div>
+                                <p class="font-semibold">Software Engineer</p>
+                                <p class="text-emerald-200 text-sm">Discovery • Johannesburg</p>
+                            </div>
+                        </div>
+                        <div class="bg-emerald-400 text-black text-xs font-bold px-3 py-1 rounded-3xl">VERIFIED</div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-emerald-100">CIPC Reg:</span>
+                            <span class="font-mono">2018/123456/07</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-emerald-100">Salary:</span>
+                            <span class="font-semibold">R 85,000 – R 120,000 / month</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-emerald-100">Posted:</span>
+                            <span>2 hours ago • Johannesburg, Gauteng</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="applyDemo()" 
+                            class="mt-8 w-full bg-white text-black font-semibold py-4 rounded-3xl text-lg">Apply Now – Takes 45 seconds</button>
+                    
+                    <p class="text-center text-xs text-emerald-100 mt-4">Job seekers can see the company's full registration details before applying</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- STATS BAR -->
+    <div class="bg-zinc-900 py-6">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-3 md:grid-cols-6 gap-8 text-center">
+            <div>
+                <div class="text-4xl font-semibold text-emerald-400">1,284</div>
+                <div class="text-zinc-400 text-sm">Active verified jobs</div>
+            </div>
+            <div>
+                <div class="text-4xl font-semibold text-emerald-400">387</div>
+                <div class="text-zinc-400 text-sm">Verified companies</div>
+            </div>
+            <div>
+                <div class="text-4xl font-semibold text-emerald-400">94</div>
+                <div class="text-zinc-400 text-sm">New jobs today</div>
+            </div>
+            <div>
+                <div class="text-4xl font-semibold text-emerald-400">Gauteng</div>
+                <div class="text-zinc-400 text-sm">482 jobs</div>
+            </div>
+            <div>
+                <div class="text-4xl font-semibold text-emerald-400">Western Cape</div>
+                <div class="text-zinc-400 text-sm">301 jobs</div>
+            </div>
+            <div>
+                <div class="text-4xl font-semibold text-emerald-400">KZN</div>
+                <div class="text-zinc-400 text-sm">156 jobs</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BROWSE JOBS SECTION -->
+    <section id="jobs-section" class="max-w-7xl mx-auto px-6 py-16">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <h2 class="text-4xl font-semibold tracking-tighter">Live Verified Jobs in South Africa</h2>
+                <p class="text-zinc-400">Every listing includes CIPC registration. Verify before you apply.</p>
+            </div>
+            
+            <!-- Search -->
+            <div class="flex-1 max-w-md mx-8">
+                <div onclick="focusSearch()" class="bg-zinc-900 border border-zinc-700 focus-within:border-emerald-400 rounded-3xl px-6 py-4 flex items-center gap-x-3 cursor-text">
+                    <i class="fa-solid fa-magnifying-glass text-emerald-400"></i>
+                    <input id="search-input" 
+                           onkeyup="if(event.key==='Enter') filterJobs()"
+                           type="text" 
+                           placeholder="Search jobs, companies, skills... (e.g. developer Johannesburg)"
+                           class="flex-1 bg-transparent outline-none text-sm placeholder:text-zinc-400">
+                </div>
+            </div>
+            
+            <button onclick="filterJobs()" 
+                    class="bg-emerald-500 hover:bg-emerald-600 text-black px-8 py-4 rounded-3xl font-semibold flex items-center gap-x-2">
+                <i class="fa-solid fa-filter"></i>
+                FILTER
+            </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex flex-wrap gap-3 mb-8" id="filter-pills">
+            <div onclick="toggleFilter(this)" data-type="province" data-value="Gauteng" 
+                 class="filter-pill px-5 py-2 bg-zinc-900 hover:bg-zinc-800 border border-transparent rounded-3xl text-sm flex items-center gap-x-2 cursor-pointer">
+                <i class="fa-solid fa-location-dot"></i> Gauteng
+            </div>
+            <div onclick="toggleFilter(this)" data-type="province" data-value="Western Cape" 
+                 class="filter-pill px-5 py-2 bg-zinc-900 hover:bg-zinc-800 border border-transparent rounded-3xl text-sm flex items-center gap-x-2 cursor-pointer">
+                <i class="fa-solid fa-location-dot"></i> Western Cape
+            </div>
+            <div onclick="toggleFilter(this)" data-type="province" data-value="KwaZulu-Natal" 
+                 class="filter-pill px-5 py-2 bg-zinc-900 hover:bg-zinc-800 border border-transparent rounded-3xl text-sm flex items-center gap-x-2 cursor-pointer">
+                <i class="fa-solid fa-location-dot"></i> KwaZulu-Natal
+            </div>
+            <div onclick="toggleFilter(this)" data-type="type" data-value="Full-time" 
+                 class="filter-pill px-5 py-2 bg-zinc-900 hover:bg-zinc-800 border border-transparent rounded-3xl text-sm flex items-center gap-x-2 cursor-pointer">
+                Full-time
+            </div>
+            <div onclick="toggleFilter(this)" data-type="type" data-value="Contract" 
+                 class="filter-pill px-5 py-2 bg-zinc-900 hover:bg-zinc-800 border border-transparent rounded-3xl text-sm flex items-center gap-x-2 cursor-pointer">
+                Contract
+            </div>
+            <div onclick="toggleFilter(this)" data-type="category" data-value="IT" 
+                 class="filter-pill px-5 py-2 bg-zinc-900 hover:bg-zinc-800 border border-transparent rounded-3xl text-sm flex items-center gap-x-2 cursor-pointer">
+                IT &amp; Software
+            </div>
+            <div onclick="toggleFilter(this)" data-type="category" data-value="Finance" 
+                 class="filter-pill px-5 py-2 bg-zinc-900 hover:bg-zinc-800 border border-transparent rounded-3xl text-sm flex items-center gap-x-2 cursor-pointer">
+                Finance
+            </div>
+            <button onclick="clearFilters()" class="text-emerald-400 text-sm underline ml-auto">Clear all filters</button>
+        </div>
+
+        <!-- Jobs Grid -->
+        <div id="jobs-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Populated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- POST A JOB SECTION / MODAL -->
+    <div id="post-modal" onclick="if(event.target.id === 'post-modal') hidePostJobModal()" 
+         class="hidden fixed inset-0 bg-black/70 z-[100] flex items-center justify-center">
+        <div onclick="event.stopImmediatePropagation()" 
+             class="bg-zinc-900 max-w-2xl w-full mx-4 rounded-3xl overflow-hidden">
+            <div class="px-8 py-6 border-b border-zinc-800 flex items-center justify-between">
+                <h3 class="text-2xl font-semibold">Post a Verified Job</h3>
+                <button onclick="hidePostJobModal()" class="text-3xl leading-none">×</button>
+            </div>
+            
+            <form id="post-job-form" onsubmit="handlePostJob(event)" class="p-8 space-y-8">
+                <!-- COMPANY INFORMATION (mandatory) -->
+                <div>
+                    <h4 class="font-medium text-emerald-400 mb-4 flex items-center gap-x-2">
+                        <i class="fa-solid fa-building"></i> COMPANY INFORMATION (must be real)
+                    </h4>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-zinc-400 block mb-1">Company Legal Name</label>
+                            <input id="company-name" type="text" required 
+                                   class="w-full bg-zinc-800 border border-zinc-700 focus:border-emerald-400 rounded-2xl px-5 py-4 outline-none">
+                        </div>
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-zinc-400 block mb-1">CIPC Registration Number</label>
+                            <input id="cipc" type="text" placeholder="2018/123456/07" required 
+                                   class="w-full bg-zinc-800 border border-zinc-700 focus:border-emerald-400 rounded-2xl px-5 py-4 outline-none font-mono">
+                            <p class="text-[10px] text-zinc-500 mt-1">This will be publicly visible so job seekers can verify you at cipc.co.za</p>
+                        </div>
+                    </div>
+                    <div class="mt-6 grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-zinc-400 block mb-1">Physical Address (Johannesburg / Cape Town etc.)</label>
+                            <input id="address" type="text" required 
+                                   class="w-full bg-zinc-800 border border-zinc-700 focus:border-emerald-400 rounded-2xl px-5 py-4 outline-none">
+                        </div>
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-zinc-400 block mb-1">Company Website</label>
+                            <input id="website" type="url" placeholder="https://yourcompany.co.za" 
+                                   class="w-full bg-zinc-800 border border-zinc-700 focus:border-emerald-400 rounded-2xl px-5 py-4 outline-none">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- JOB DETAILS -->
+                <div>
+                    <h4 class="font-medium text-emerald-400 mb-4">JOB DETAILS</h4>
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-zinc-400 block mb-1">Job Title</label>
+                            <input id="job-title" type="text" required 
+                                   class="w-full bg-zinc-800 border border-zinc-700 focus:border-emerald-400 rounded-2xl px-5 py-4 outline-none">
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-xs uppercase tracking-widest text-zinc-400 block mb-1">Province</label>
+                                <select id="province" required class="w-full bg-zinc-800 border border-zinc-700 focus:border-emerald-400 rounded-2xl px-5 py-4 outline-none">
+                                    <option value="">Select province...</option>
+                                    <option value="Gauteng">Gauteng</option>
+                                    <option value="Western Cape">Western Cape</option>
+                                    <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                                    <option value="Eastern Cape">Eastern Cape</option>
+                                    <option value="Free State">Free State</option>
+                                    <option value="Limpopo">Limpopo</option>
+                                    <option value="Mpumalanga">Mpumalanga</option>
+                                    <option value="North West">North West</option>
+                                    <option value="Northern Cape">Northern Cape</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-xs uppercase tracking-widest text-zinc-400 block mb-1">Job Type</label>
+                                <select id="job-type" required class="w-full bg-zinc-800 border border-zinc-700 focus:border-emerald-400 rounded-2xl px-5 py-4 outline-none">
+                                    <option value="Full-time">Full-time</option>
+                                    <option value="Part-time">Part-time</option>
+                                    <option value="Contract">Contract</option>
+                                    <option value="Remote">Remote (SA only)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-zinc-400 block mb-1">Salary Range (ZAR per month)</label>
+                            <div class="flex gap-4">
+                                <input id="salary-min" type="text" placeholder="Min e.g. 45000" required 
+                                       class="flex-1 bg-zinc-800 border border-zinc-700 focus:border-emerald-400 rounded-2xl px-5 py-4 outline-none">
+                                <input id="salary-max" type="text" placeholder="Max e.g. 85000" required 
+                                       class="flex-1 bg-zinc-800 border border-zinc-700 focus:border-emerald-400 rounded-2xl px-5 py-4 outline-none">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="text-xs uppercase tracking-widest text-zinc-400 block mb-1">Full Job Description</label>
+                            <textarea id="description" rows="6" required 
+                                      class="w-full bg-zinc-800 border border-zinc-700 focus:border-emerald-400 rounded-3xl px-5 py-4 outline-none resize-none"></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full py-5 bg-emerald-500 hover:bg-emerald-600 text-xl font-semibold text-black rounded-3xl">
+                    POST JOB FOR FREE – WILL BE PUBLICLY VERIFIED
+                </button>
+                
+                <p class="text-center text-xs text-zinc-400">Your CIPC number will appear on the job listing. Job seekers can verify you instantly.</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-section" class="bg-zinc-900 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-4xl font-semibold text-center tracking-tighter mb-12">How RealJobsZA Protects Job Seekers</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-zinc-800 rounded-3xl p-8 text-center">
+                    <div class="text-6xl mb-6">1️⃣</div>
+                    <h3 class="font-semibold text-xl mb-3">Company must register with CIPC</h3>
+                    <p class="text-zinc-400">Every employer provides legal name + CIPC registration number before posting. No anonymous accounts.</p>
+                </div>
+                <div class="bg-zinc-800 rounded-3xl p-8 text-center">
+                    <div class="text-6xl mb-6">2️⃣</div>
+                    <h3 class="font-semibold text-xl mb-3">All info is public</h3>
+                    <p class="text-zinc-400">Job seekers can click the CIPC number and verify the company on the official government site in 10 seconds.</p>
+                </div>
+                <div class="bg-zinc-800 rounded-3xl p-8 text-center">
+                    <div class="text-6xl mb-6">3️⃣</div>
+                    <h3 class="font-semibold text-xl mb-3">Report &amp; remove instantly</h3>
+                    <p class="text-zinc-400">One click report button. We verify every company within 24 hours and remove fake listings permanently.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VERIFIED COMPANIES SECTION -->
+    <section id="companies-section" class="max-w-7xl mx-auto px-6 py-16">
+        <h2 class="text-4xl font-semibold tracking-tighter mb-8">Recently Verified Companies</h2>
+        <div id="companies-grid" class="grid md:grid-cols-4 gap-6">
+            <!-- Populated by JS -->
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-12 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6 text-zinc-400 text-sm">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-y-6">
+                <div class="flex items-center gap-x-3">
+                    <div class="text-3xl">🇿🇦</div>
+                    <div>
+                        <span class="font-semibold text-white text-xl tracking-tighter">RealJobsZA</span>
+                        <p class="text-xs">© 2026 • Built for South Africans by South Africans</p>
+                    </div>
+                </div>
+                
+                <div class="flex gap-x-8">
+                    <a href="#" class="hover:text-white">How verification works</a>
+                    <a href="#" class="hover:text-white">CIPC Verification Guide</a>
+                    <a href="#" class="hover:text-white">For Job Seekers</a>
+                    <a href="#" class="hover:text-white">Report a Listing</a>
+                    <a href="#" class="hover:text-white">Contact Us</a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-emerald-400">Zero tolerance for fake jobs.</p>
+                    <p class="text-xs">Made with ❤️ in Johannesburg</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Simple Login Modal (demo) -->
+    <div onclick="if(event.target.id === 'login-modal') hideLoginModal()" 
+         id="login-modal" class="hidden fixed inset-0 bg-black/80 z-[200] flex items-center justify-center">
+        <div class="bg-zinc-900 w-full max-w-md mx-4 rounded-3xl p-8">
+            <h2 class="text-3xl font-semibold mb-8">Welcome to RealJobsZA</h2>
+            <div class="space-y-4">
+                <button onclick="fakeLogin('seeker')" 
+                        class="w-full py-4 border border-zinc-700 hover:border-emerald-400 rounded-3xl text-left px-6 flex justify-between items-center">
+                    <span><i class="fa-solid fa-user-tie mr-3"></i> I’m a Job Seeker</span>
+                    <span class="text-emerald-400 text-xs">Browse &amp; apply</span>
+                </button>
+                <button onclick="fakeLogin('company')" 
+                        class="w-full py-4 border border-zinc-700 hover:border-emerald-400 rounded-3xl text-left px-6 flex justify-between items-center">
+                    <span><i class="fa-solid fa-building mr-3"></i> I’m a Company</span>
+                    <span class="text-emerald-400 text-xs">Post jobs</span>
+                </button>
+            </div>
+            <p onclick="hideLoginModal()" class="text-center text-xs mt-8 cursor-pointer text-zinc-400">Close</p>
+        </div>
+    </div>
+
+    <script>
+        // =============== DATA STORE (in-memory + localStorage persistence) ===============
+        let JOBS = []
+        let COMPANIES = []
+        
+        const PROVINCES = ["Gauteng", "Western Cape", "KwaZulu-Natal", "Eastern Cape", "Free State", "Limpopo", "Mpumalanga", "North West", "Northern Cape"]
+        
+        // Seed data
+        function seedData() {
+            if (localStorage.getItem('realjobsza_jobs')) {
+                JOBS = JSON.parse(localStorage.getItem('realjobsza_jobs'))
+                COMPANIES = JSON.parse(localStorage.getItem('realjobsza_companies') || '[]')
+                return
+            }
+            
+            JOBS = [
+                {
+                    id: 1,
+                    title: "Senior Full Stack Developer",
+                    company: "Discovery Ltd",
+                    cipc: "2008/012345/07",
+                    address: "1 Discovery Place, Sandton, Gauteng",
+                    website: "https://www.discovery.co.za",
+                    province: "Gauteng",
+                    type: "Full-time",
+                    salaryMin: 95000,
+                    salaryMax: 145000,
+                    category: "IT",
+                    description: "Join our world-class engineering team building digital health solutions that impact millions of South Africans. Hybrid work, great benefits.",
+                    posted: "2026-04-12",
+                    verified: true
+                },
+                {
+                    id: 2,
+                    title: "Chartered Accountant (CA(SA))",
+                    company: "Nedbank",
+                    cipc: "1966/010234/06",
+                    address: "135 Rivonia Road, Sandton",
+                    website: "https://www.nedbank.co.za",
+                    province: "Gauteng",
+                    type: "Full-time",
+                    salaryMin: 85000,
+                    salaryMax: 110000,
+                    category: "Finance",
+                    description: "Lead financial reporting for one of South Africa's largest banks. Excellent career growth.",
+                    posted: "2026-04-11",
+                    verified: true
+                },
+                {
+                    id: 3,
+                    title: "Registered Nurse – Theatre",
+                    company: "Netcare Hospitals",
+                    cipc: "1996/005678/07",
+                    address: "76 Maude Street, Sandton",
+                    website: "https://www.netcare.co.za",
+                    province: "Western Cape",
+                    type: "Full-time",
+                    salaryMin: 42000,
+                    salaryMax: 58000,
+                    category: "Healthcare",
+                    description: "Immediate vacancy at Netcare Christiaan Barnard Memorial Hospital, Cape Town.",
+                    posted: "2026-04-13",
+                    verified: true
+                },
+                {
+                    id: 4,
+                    title: "Mechanical Engineer (Mining)",
+                    company: "Anglo American",
+                    cipc: "2002/007890/06",
+                    address: "55 Marshall Street, Johannesburg",
+                    website: "https://www.angloamerican.com",
+                    province: "Gauteng",
+                    type: "Contract",
+                    salaryMin: 110000,
+                    salaryMax: 160000,
+                    category: "Engineering",
+                    description: "6-month contract with possibility of extension at our Mogalakwena mine.",
+                    posted: "2026-04-10",
+                    verified: true
+                },
+                {
+                    id: 5,
+                    title: "Digital Marketing Specialist",
+                    company: "Takealot Group",
+                    cipc: "2012/034567/07",
+                    address: "Wembley Square, Cape Town",
+                    website: "https://www.takealot.com",
+                    province: "Western Cape",
+                    type: "Full-time",
+                    salaryMin: 38000,
+                    salaryMax: 52000,
+                    category: "Marketing",
+                    description: "Drive performance marketing for South Africa's #1 e-commerce platform.",
+                    posted: "2026-04-12",
+                    verified: true
+                }
+            ]
+            
+            COMPANIES = [
+                { name: "Discovery Ltd", cipc: "2008/012345/07", address: "Sandton", verified: true },
+                { name: "Nedbank", cipc: "1966/010234/06", address: "Sandton", verified: true },
+                { name: "Netcare Hospitals", cipc: "1996/005678/07", address: "Cape Town", verified: true },
+                { name: "Anglo American", cipc: "2002/007890/06", address: "Johannesburg", verified: true }
+            ]
+            
+            localStorage.setItem('realjobsza_jobs', JSON.stringify(JOBS))
+            localStorage.setItem('realjobsza_companies', JSON.stringify(COMPANIES))
+        }
+        
+        // Render jobs
+        function renderJobs(filteredJobs) {
+            const grid = document.getElementById('jobs-grid')
+            grid.innerHTML = ''
+            
+            if (filteredJobs.length === 0) {
+                grid.innerHTML = `<div class="col-span-3 py-12 text-center text-zinc-400">No jobs match your filters.<br>Try removing some filters or post a new job!</div>`
+                return
+            }
+            
+            filteredJobs.forEach(job => {
+                const cardHTML = `
+                <div onclick="showJobDetail(${job.id})" class="job-card bg-zinc-900 border border-zinc-800 hover:border-emerald-400 rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="px-6 pt-6">
+                        <div class="flex justify-between">
+                            <div class="flex items-center gap-x-3">
+                                <div class="text-4xl">🇿🇦</div>
+                                <div>
+                                    <p class="font-semibold">${job.title}</p>
+                                    <p class="text-emerald-400 text-sm">${job.company}</p>
+                                </div>
+                            </div>
+                            ${job.verified ? `<div class="bg-emerald-400 text-black text-xs font-bold px-4 h-6 flex items-center rounded-3xl">VERIFIED</div>` : ''}
+                        </div>
+                        
+                        <div class="mt-6 flex flex-wrap gap-x-4 text-xs text-zinc-400">
+                            <div><i class="fa-solid fa-location-dot mr-1"></i> ${job.province}</div>
+                            <div><i class="fa-solid fa-clock mr-1"></i> ${job.type}</div>
+                            <div class="font-medium text-emerald-300">R ${job.salaryMin.toLocaleString()} – R ${job.salaryMax.toLocaleString()}</div>
+                        </div>
+                        
+                        <p class="text-zinc-400 text-sm mt-4 line-clamp-3">${job.description.substring(0, 140)}...</p>
+                        
+                        <div class="text-[10px] font-mono mt-6 border-t border-zinc-700 pt-4 flex justify-between items-center">
+                            <span>CIPC: <strong>${job.cipc}</strong></span>
+                            <span class="text-emerald-400">${job.posted}</span>
+                        </div>
+                    </div>
+                </div>`
+                grid.innerHTML += cardHTML
+            })
+        }
+        
+        // Render companies
+        function renderCompanies() {
+            const grid = document.getElementById('companies-grid')
+            grid.innerHTML = ''
+            
+            COMPANIES.forEach(company => {
+                const html = `
+                <div class="bg-zinc-900 border border-zinc-800 rounded-3xl p-6 text-center">
+                    <div class="text-5xl mb-4">🏢</div>
+                    <h4 class="font-semibold">${company.name}</h4>
+                    <p class="text-xs text-emerald-400 font-mono mt-2">${company.cipc}</p>
+                    <p class="text-zinc-400 text-sm mt-1">${company.address}</p>
+                    ${company.verified ? `<div class="inline-flex mt-4 text-xs bg-emerald-400 text-black px-5 py-1 rounded-3xl font-medium">VERIFIED COMPANY</div>` : ''}
+                </div>`
+                grid.innerHTML += html
+            })
+        }
+        
+        // Filter jobs
+        let activeFilters = { province: [], type: [], category: [] }
+        
+        function toggleFilter(el) {
+            const type = el.dataset.type
+            const value = el.dataset.value
+            
+            if (activeFilters[type].includes(value)) {
+                activeFilters[type] = activeFilters[type].filter(v => v !== value)
+                el.classList.remove('border-emerald-400', 'bg-emerald-900/30')
+            } else {
+                activeFilters[type].push(value)
+                el.classList.add('border-emerald-400', 'bg-emerald-900/30')
+            }
+            
+            filterJobs()
+        }
+        
+        function clearFilters() {
+            activeFilters = { province: [], type: [], category: [] }
+            document.querySelectorAll('.filter-pill').forEach(el => el.classList.remove('border-emerald-400', 'bg-emerald-900/30'))
+            filterJobs()
+        }
+        
+        function filterJobs() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase().trim()
+            
+            let filtered = JOBS
+            
+            // Search
+            if (searchTerm) {
+                filtered = filtered.filter(job => 
+                    job.title.toLowerCase().includes(searchTerm) ||
+                    job.company.toLowerCase().includes(searchTerm) ||
+                    job.description.toLowerCase().includes(searchTerm)
+                )
+            }
+            
+            // Province filter
+            if (activeFilters.province.length) {
+                filtered = filtered.filter(job => activeFilters.province.includes(job.province))
+            }
+            
+            // Type filter
+            if (activeFilters.type.length) {
+                filtered = filtered.filter(job => activeFilters.type.includes(job.type))
+            }
+            
+            renderJobs(filtered)
+        }
+        
+        // Show job detail
+        function showJobDetail(id) {
+            const job = JOBS.find(j => j.id === id)
+            if (!job) return
+            
+            const detailHTML = `
+            <div class="fixed inset-0 bg-black/70 z-[150] flex items-center justify-center p-4">
+                <div onclick="event.stopImmediatePropagation()" class="bg-zinc-900 w-full max-w-2xl rounded-3xl max-h-[90vh] overflow-auto">
+                    <div class="sticky top-0 bg-zinc-900 border-b border-zinc-800 px-8 py-5 flex justify-between items-center">
+                        <div>
+                            <h1 class="text-3xl font-semibold">${job.title}</h1>
+                            <p class="text-emerald-400">${job.company} • ${job.province}</p>
+                        </div>
+                        <button onclick="this.closest('.fixed').remove()" class="text-4xl leading-none">×</button>
+                    </div>
+                    
+                    <div class="p-8">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="bg-emerald-400 text-black text-xs font-bold px-6 py-2 rounded-3xl">CIPC VERIFIED</div>
+                            <div class="font-mono text-sm">${job.cipc}</div>
+                            <a href="https://www.cipc.co.za/" target="_blank" class="text-xs text-emerald-400 underline">Verify on CIPC website →</a>
+                        </div>
+                        
+                        <p class="text-zinc-300 text-lg leading-relaxed">${job.description}</p>
+                        
+                        <div class="mt-12 grid grid-cols-3 gap-6">
+                            <div>
+                                <p class="text-xs text-zinc-400">SALARY</p>
+                                <p class="text-3xl font-semibold text-emerald-300">R ${job.salaryMin.toLocaleString()} – R ${job.salaryMax.toLocaleString()}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-zinc-400">LOCATION</p>
+                                <p class="text-xl">${job.address}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-zinc-400">TYPE</p>
+                                <p class="text-xl">${job.type}</p>
+                            </div>
+                        </div>
+                        
+                        <button onclick="applyToJob(${job.id}); this.closest('.fixed').remove()" 
+                                class="mt-12 w-full py-6 bg-emerald-500 text-black text-2xl font-semibold rounded-3xl">APPLY NOW (Takes 30 seconds)</button>
+                        
+                        <p class="text-center text-xs text-zinc-400 mt-6">Your application will go directly to the verified company</p>
+                    </div>
+                </div>
+            </div>`
+            
+            const div = document.createElement('div')
+            div.innerHTML = detailHTML
+            document.body.appendChild(div.firstElementChild)
+        }
+        
+        function applyToJob(id) {
+            const job = JOBS.find(j => j.id === id)
+            alert(`✅ Application sent to ${job.company}!\n\nThey received your details and will contact you shortly.\n\nThank you for using RealJobsZA – the only job board that verifies every employer.`)
+        }
+        
+        function applyDemo() {
+            alert("🎉 Demo application submitted! In the real app this would send your CV to the verified company instantly.")
+        }
+        
+        // Post job handler
+        function handlePostJob(e) {
+            e.preventDefault()
+            
+            const newJob = {
+                id: Date.now(),
+                title: document.getElementById('job-title').value,
+                company: document.getElementById('company-name').value,
+                cipc: document.getElementById('cipc').value,
+                address: document.getElementById('address').value,
+                website: document.getElementById('website').value || 'Not provided',
+                province: document.getElementById('province').value,
+                type: document.getElementById('job-type').value,
+                salaryMin: parseInt(document.getElementById('salary-min').value),
+                salaryMax: parseInt(document.getElementById('salary-max').value),
+                category: "General",
+                description: document.getElementById('description').value,
+                posted: "2026-04-13",
+                verified: true   // In production you would have an admin verification step
+            }
+            
+            JOBS.unshift(newJob)
+            
+            // Also add company to verified list if new
+            if (!COMPANIES.find(c => c.cipc === newJob.cipc)) {
+                COMPANIES.unshift({
+                    name: newJob.company,
+                    cipc: newJob.cipc,
+                    address: newJob.province,
+                    verified: true
+                })
+            }
+            
+            // Persist
+            localStorage.setItem('realjobsza_jobs', JSON.stringify(JOBS))
+            localStorage.setItem('realjobsza_companies', JSON.stringify(COMPANIES))
+            
+            hidePostJobModal()
+            renderJobs(JOBS)
+            renderCompanies()
+            
+            alert(`✅ Job posted successfully!\n\nCIPC: ${newJob.cipc} is now visible to all job seekers.\nYour listing is live immediately.`)
+            
+            // Reset form
+            e.target.reset()
+        }
+        
+        // Modal controls
+        function showPostJobModal() {
+            document.getElementById('post-modal').classList.remove('hidden')
+            document.getElementById('post-modal').classList.add('flex')
+        }
+        
+        function hidePostJobModal() {
+            const modal = document.getElementById('post-modal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+        
+        function toggleLoginModal() {
+            const modal = document.getElementById('login-modal')
+            modal.classList.toggle('hidden')
+            modal.classList.toggle('flex')
+        }
+        
+        function hideLoginModal() {
+            const modal = document.getElementById('login-modal')
+            modal.classList.add('hidden')
+            modal.classList.remove('flex')
+        }
+        
+        function fakeLogin(role) {
+            hideLoginModal()
+            const msg = role === 'seeker' 
+                ? "✅ Signed in as Job Seeker. You can now save jobs and apply instantly." 
+                : "✅ Signed in as Company. You can now manage your verified listings."
+            alert(msg)
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu')
+            const icon = document.getElementById('mobile-icon')
+            menu.classList.toggle('hidden')
+            icon.classList.toggle('fa-bars')
+            icon.classList.toggle('fa-xmark')
+        }
+        
+        function navigateToSection(section) {
+            document.getElementById(section).scrollIntoView({ behavior: 'smooth' })
+        }
+        
+        // Initialize the entire site
+        function initializeRealJobsZA() {
+            seedData()
+            renderJobs(JOBS)
+            renderCompanies()
+            
+            console.log('%c🚀 RealJobsZA full blueprint loaded successfully!', 'color:#00c853; font-size:18px; font-weight:bold')
+            console.log('✅ All companies require CIPC registration')
+            console.log('✅ Job seekers can verify every employer instantly')
+            console.log('✅ Ready to scale with real backend (Prisma + Supabase recommended)')
+            
+            // Tailwind script already loaded via CDN
+            console.log('TailwindCSS ready')
+        }
+        
+        // Boot the app
+        window.onload = initializeRealJobsZA
+    </script>
+</body>
+</html>
